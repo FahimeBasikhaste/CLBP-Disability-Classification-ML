@@ -128,9 +128,10 @@ def run_pipeline(data_path=None):
     )
 
     # Encapsulated Pipeline Construction (Preventing Data Leakage)
+    # CHANGED: weights parameter updated to 'distance' to strictly match manuscript text
     ann_pipeline = Pipeline(
         [
-            ("imputer", KNNImputer(n_neighbors=5, weights="uniform")),
+            ("imputer", KNNImputer(n_neighbors=5, weights="distance")),
             ("scaler", StandardScaler()),
             (
                 "ann",
@@ -159,7 +160,7 @@ def run_pipeline(data_path=None):
     sens = tp / (tp + fn)
 
     print("\n=======================================================")
-    print("      INTERNAL HOLDOUT TEST SET PERFORMANCE (N=151)    ")
+    print("    INTERNAL HOLDOUT TEST SET PERFORMANCE (N=151)    ")
     print("=======================================================")
     print(f"ROC-AUC:          {auc:.3f}")
     print(f"Accuracy:         {acc:.3f}")
